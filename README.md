@@ -95,3 +95,7 @@ root (for `C:` it lives in your user folder). The space returns immediately.
 
 Windows 10/11 with PowerShell (included with Windows). Works in Windows Terminal,
 PowerShell, or a plain Command Prompt window.
+
+## License
+
+[MIT](LICENSE) — free to use, tweak, and share.
