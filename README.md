@@ -1,16 +1,16 @@
-# WindSpacer — Windows Disk Spacer
+# WindSpacer (Windows Disk Spacer)
 
-Make any drive on your Windows PC **look completely full** — instantly, safely, and reversibly.
+Make any drive on your Windows PC **look completely full**: instantly, safely, and reversibly.
 
 WindSpacer drops one big "spacer" file onto the drive you choose. The space is genuinely
 reserved (Explorer, apps, and Windows all see a full disk), but no real data is ever
-written — so filling 50 GB takes half a second, and deleting the file hands every byte
+written, so filling 50 GB takes half a second, and deleting the file hands every byte
 back just as fast.
 
 ```
   ==================================================
               W I N D S P A C E R
-           make a drive look full — undo it anytime
+           make a drive look full, undo it anytime
   ==================================================
 
   Your drives right now:
@@ -33,7 +33,7 @@ back just as fast.
 iwr 'https://raw.githubusercontent.com/eru123/windspacer/main/windspacer.ps1' -UseBasicParsing -OutFile "$env:TEMP\windspacer.ps1"; & "$env:TEMP\windspacer.ps1"
 ```
 
-3. That's it — the menu appears. Pick a number and follow the prompts.
+3. That's it, the menu appears. Pick a number and follow the prompts.
 
 > Reminder for the non-technical folks: pasting one-liners from the internet runs code on
 > your PC. Only ever do this from repos you trust.
@@ -57,18 +57,18 @@ If Windows SmartScreen shows "Windows protected your PC" the first time, click
 
 ## What it can do
 
-- **Fill a drive** — either completely (you choose how much breathing room it keeps:
+- **Fill a drive**: either completely (you choose how much breathing room it keeps:
   5 GB recommended, 2 GB slim, or 10 GB roomy) or by a **custom size** ("add exactly 37 GB").
-- **Release space** — finds every spacer file it created, shows how much each one holds,
+- **Release space**: finds every spacer file it created, shows how much each one holds,
   and gives the space back the moment you confirm.
-- **Plain-language confirmations** — every action shows exactly what will happen
-  ("Free space now 50.8 GB → after 2.0 GB — it will look FULL") before touching anything.
-- **A live dashboard** — colored fill-bars for every drive, with a tag showing which
+- **Plain-language confirmations**: every action shows exactly what will happen
+  ("Free space now 50.8 GB → after 2.0 GB it will look FULL") before touching anything.
+- **A live dashboard**: colored fill-bars for every drive, with a tag showing which
   drives currently hold fake space.
 
 ## How it works
 
-Imagine parking a giant cardboard box in your garage. The box holds nothing — but nobody
+Imagine parking a giant cardboard box in your garage. The box holds nothing, but nobody
 else can park there. WindSpacer creates one big file (`spacer.dat`) that takes up real
 space on the drive, so Windows thinks the drive is full. Deleting the box hands the whole
 garage back instantly. Nothing else on the drive is touched.
@@ -85,7 +85,7 @@ root (for `C:` it lives in your user folder). The space returns immediately.
 
 - Never leaves a drive with less than **1 GB** free, and "fill completely" always keeps
   the breathing room you picked.
-- Extra warnings before touching `C:` — a full Windows drive makes Windows nag and some
+- Extra warnings before touching `C:`: a full Windows drive makes Windows nag and some
   apps misbehave until you release it.
 - No data is written to disk and nothing is modified besides the single `spacer.dat` file.
 - No admin rights needed in most setups (if a drive root refuses the file, it
@@ -98,4 +98,4 @@ PowerShell, or a plain Command Prompt window.
 
 ## License
 
-[MIT](LICENSE) — free to use, tweak, and share.
+[MIT](LICENSE), free to use, tweak, and share.

@@ -31,7 +31,7 @@ function Read-MenuChoice($prompt, $labels) {
         $ans = Read-Host "  Type your choice (1-$($labels.Count))"
         $n = 0
         if ([int]::TryParse($ans, [ref]$n) -and $n -ge 1 -and $n -le $labels.Count) { return $n - 1 }
-        Write-Host "  Hmm, that's not on the list — pick a number from 1 to $($labels.Count)." -ForegroundColor Yellow
+        Write-Host "  Hmm, that's not on the list, pick a number from 1 to $($labels.Count)." -ForegroundColor Yellow
     }
 }
 
@@ -77,7 +77,7 @@ function Show-Banner {
     Write-Host ""
     Write-Host "  ==================================================" -ForegroundColor Cyan
     Write-Host "            W I N D S P A C E R" -ForegroundColor Cyan
-    Write-Host "       make a drive look full — undo it anytime" -ForegroundColor DarkCyan
+    Write-Host "       make a drive look full, undo it anytime" -ForegroundColor DarkCyan
     Write-Host "  ==================================================" -ForegroundColor Cyan
 }
 
@@ -116,20 +116,20 @@ function Invoke-Fill {
     $letter = $drive.Name.TrimEnd('\')
 
     $mode = Read-MenuChoice "How full should it look?" @(
-        "Stuffed   — fill the whole drive (keeps a little breathing room)",
-        "Custom    — add a specific amount of fake data"
+        "Stuffed: fill the whole drive (keeps a little breathing room)",
+        "Custom: add a specific amount of fake data"
     )
 
     if ($mode -eq 0) {
         $margin = @(5, 2, 10)[(Read-MenuChoice "How much breathing room should it keep?" @(
-            "5 GB    safest — recommended",
+            "5 GB    safest, recommended",
             "2 GB    just enough for Windows to behave",
             "10 GB   lots of spare room"
         ))]
         $addBytes = [math]::Floor(($drive.AvailableFreeSpace - ($margin * 1GB)) / 1MB) * 1MB
         if ($addBytes -le 0) {
             Write-Host ""
-            Write-Host "  $letter already has less than $margin GB free — there's nothing to fill!" -ForegroundColor Yellow
+            Write-Host "  $letter already has less than $margin GB free, there's nothing to fill!" -ForegroundColor Yellow
             Wait-ForEnter; return
         }
     }
@@ -161,14 +161,14 @@ function Invoke-Fill {
 
     if ($drive.Name -eq "C:\") {
         Write-Host ""
-        Write-Host "  CAREFUL — C: is your Windows drive. While it looks full," -ForegroundColor Yellow
+        Write-Host "  CAREFUL: C: is your Windows drive. While it looks full," -ForegroundColor Yellow
         Write-Host "  Windows may nag you and some apps may misbehave." -ForegroundColor Yellow
         Write-Host "  You can undo it any time with option 2 in the menu." -ForegroundColor Yellow
     }
 
     Write-Host ""
     if (-not (Read-YesNo "Go ahead?")) {
-        Write-Host "  Cancelled — nothing was changed." -ForegroundColor Yellow
+        Write-Host "  Cancelled, nothing was changed." -ForegroundColor Yellow
         Wait-ForEnter; return
     }
 
@@ -185,7 +185,7 @@ function Invoke-Fill {
                 $fs   = [System.IO.File]::OpenWrite($path)
             } else { throw }
         }
-        # SetLength reserves the space instantly — no data is ever written
+        # SetLength reserves the space instantly, no data is ever written
         $fs.SetLength([int64]($fs.Length + $addBytes))
         $fs.Close()
     }
@@ -204,7 +204,7 @@ function Invoke-Fill {
     Write-Host "  All set! Here's $letter now:" -ForegroundColor Green
     Write-DriveLine $drive
     Write-Host ""
-    Write-Host ("  It thinks it only has {0} of space left. Wow." -f (GBfmt $drive.AvailableFreeSpace))
+    Write-Host ("  It thinks it only has {0} of space left." -f (GBfmt $drive.AvailableFreeSpace))
     Wait-ForEnter
 }
 
@@ -214,7 +214,7 @@ function Invoke-Release {
     $with = @(Get-Drives | Where-Object { Find-Spacer $_ })
     if ($with.Count -eq 0) {
         Write-Host ""
-        Write-Host "  Nothing to release — all your drives are spacer-free!" -ForegroundColor Green
+        Write-Host "  Nothing to release, all your drives are spacer-free!" -ForegroundColor Green
         Wait-ForEnter; return
     }
 
@@ -225,7 +225,7 @@ function Invoke-Release {
 
     Write-Host ""
     if (-not (Read-YesNo "Delete the spacer file(s) and free the space?")) {
-        Write-Host "  Cancelled — nothing was changed." -ForegroundColor Yellow
+        Write-Host "  Cancelled, nothing was changed." -ForegroundColor Yellow
         Wait-ForEnter; return
     }
 
@@ -236,10 +236,10 @@ function Invoke-Release {
             $freed += $sp.Length
             Remove-Item -LiteralPath $sp.FullName -Force
             $d = New-Object System.IO.DriveInfo($d.Name)
-            Write-Host ("  {0}: spacer deleted — {1} free again" -f $d.Name.TrimEnd('\'), (GBfmt $d.AvailableFreeSpace)) -ForegroundColor Green
+            Write-Host ("  {0}: spacer deleted, {1} free again" -f $d.Name.TrimEnd('\'), (GBfmt $d.AvailableFreeSpace)) -ForegroundColor Green
         }
         catch {
-            Write-Host ("  {0}: couldn't delete — {1}" -f $d.Name.TrimEnd('\'), $_.Exception.Message) -ForegroundColor Red
+            Write-Host ("  {0}: couldn't delete, {1}" -f $d.Name.TrimEnd('\'), $_.Exception.Message) -ForegroundColor Red
         }
     }
     if ($freed -gt 0) {
@@ -255,11 +255,11 @@ function Show-About {
     Write-Host "  How does this thing work?" -ForegroundColor White
     Write-Host ""
     Write-Host "   Imagine parking a giant cardboard box in your garage."
-    Write-Host "   The box holds nothing — but nobody else can park there."
+    Write-Host "   The box holds nothing, but nobody else can park there."
     Write-Host ""
     Write-Host "   This tool creates one big file (spacer.dat) that takes up"
     Write-Host "   real space on the drive, so Windows thinks the drive is full."
-    Write-Host "   No actual data is ever written to your disk — which is why"
+    Write-Host "   No actual data is ever written to your disk, which is why"
     Write-Host "   filling 50 GB takes half a second."
     Write-Host ""
     Write-Host "   Deleting the box (option 2 in the menu) hands the whole"
