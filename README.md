@@ -30,16 +30,10 @@ back just as fast.
 2. Paste this line and press Enter:
 
 ```powershell
-iex (irm 'https://raw.githubusercontent.com/eru123/windspacer/main/windspacer.ps1')
+iwr 'https://raw.githubusercontent.com/eru123/windspacer/main/windspacer.ps1' -UseBasicParsing -OutFile "$env:TEMP\windspacer.ps1"; & "$env:TEMP\windspacer.ps1"
 ```
 
 3. That's it — the menu appears. Pick a number and follow the prompts.
-
-Prefer the **Run dialog** (Win+R)? Paste this instead:
-
-```
-powershell -NoProfile -ExecutionPolicy Bypass -Command "iex (irm 'https://raw.githubusercontent.com/eru123/windspacer/main/windspacer.ps1')"
-```
 
 > Reminder for the non-technical folks: pasting one-liners from the internet runs code on
 > your PC. Only ever do this from repos you trust.
